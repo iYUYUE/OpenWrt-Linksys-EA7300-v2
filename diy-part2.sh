@@ -13,17 +13,23 @@
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.100.1/g' package/base-files/files/bin/config_generate
 
-# 获取luci-app-openclash 编译po2lmo
-git clone -b master https://github.com/vernesong/OpenClash package/diy-packages/openclash
-pushd package/diy-packages/openclash/luci-app-openclash/tools/po2lmo
+#=================================================
+# Clone OpenClash 项目
+mkdir package/luci-app-openclash
+cd package/luci-app-openclash
+git init
+git remote add -f origin https://github.com/vernesong/OpenClash.git
+git config core.sparsecheckout true
+echo "luci-app-openclash" >> .git/info/sparse-checkout
+git pull origin master
+git branch --set-upstream-to=origin/master master
+cd ..
+
+# 编译 po2lmo
+pushd luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
+
 #=================================================
-# 清除默认主题
-sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
-#=================================================
-# 清除旧版argon主题并拉取最新版
-pushd package/lean
-rm -rf luci-theme-argon
-git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon luci-theme-argon
-popd
+# Clone Argon 主题
+git clone -b master https://github.com/jerrykuku/luci-theme-argon luci-theme-argon
