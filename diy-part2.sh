@@ -23,13 +23,6 @@ git config core.sparsecheckout true
 echo "luci-app-openclash" >> .git/info/sparse-checkout
 git pull origin master
 git branch --set-upstream-to=origin/master master
-cd ..
-
-# Clone source.openwrt.melmac.net.git
-git clone -b master https://github.com/stangri/source.openwrt.melmac.net source.openwrt.melmac.net
-cp -r source.openwrt.melmac.net/dnsmasq package/dnsmasq
-cp -r source.openwrt.melmac.net/pbr package/pbr
-cp -r source.openwrt.melmac.net/luci-app-pbr package/luci/applications/luci-app-pbr
 
 # 编译 po2lmo
 pushd luci-app-openclash/tools/po2lmo
@@ -38,4 +31,13 @@ popd
 
 #=================================================
 # Clone Argon 主题
+cd ..
 git clone -b master https://github.com/jerrykuku/luci-theme-argon luci-theme-argon
+
+# Clone source.openwrt.melmac.net.git
+cd ..
+git clone -b master https://github.com/stangri/source.openwrt.melmac.net source.openwrt.melmac.net
+cp -r source.openwrt.melmac.net/dnsmasq package/dnsmasq
+cp -r source.openwrt.melmac.net/pbr package/pbr
+cp -r source.openwrt.melmac.net/luci-app-pbr package/luci/applications/luci-app-pbr
+rm -r source.openwrt.melmac.net
