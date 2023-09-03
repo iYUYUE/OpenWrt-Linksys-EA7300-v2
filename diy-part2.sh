@@ -27,6 +27,7 @@ cd ..
 
 # Clone source.openwrt.melmac.net.git
 git clone -b master https://github.com/stangri/source.openwrt.melmac.net source.openwrt.melmac.net
+cp -r source.openwrt.melmac.net/dnsmasq package/dnsmasq
 cp -r source.openwrt.melmac.net/pbr package/pbr
 cp -r source.openwrt.melmac.net/luci-app-pbr package/luci/applications/luci-app-pbr
 
